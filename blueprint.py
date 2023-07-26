@@ -14,9 +14,9 @@ from CTFd.utils.logging import log
 from CTFd.utils.security.auth import login_user
 
 from .models import OAuthClients
-import logging
+import logging, sys
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(stream=sys.stdout,level=logging.DEBUG)
 
 plugin_bp = Blueprint('sso', __name__, template_folder='templates', static_folder='static', static_url_path='/static/sso')
 
