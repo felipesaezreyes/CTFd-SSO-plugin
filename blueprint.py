@@ -106,6 +106,7 @@ def load_bp(oauth):
         print(client_get.headers)
         print(client_get.url)
         print(client_get.request.url)
+        print(client_get.request.headers)
         print("----")
         api_data = client_get.json()
         user_name = api_data["preferred_username"]
