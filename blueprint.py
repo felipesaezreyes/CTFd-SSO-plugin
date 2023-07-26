@@ -100,13 +100,23 @@ def load_bp(oauth):
         client = oauth.create_client(client_id)
         client.authorize_access_token()
         client_get = client.get('')
+        print("----")
+        print(client_get)
+        print(client_get.content)
+        print(client_get.headers)
+        print(client_get.url)
+        print(client_get.request.url)
+        print(client_get.request.headers)
+        print("----")
         api_data = client_get.json()
+        print(api_data)
         user_name = api_data["preferred_username"]
         user_email = api_data["email"]
         if get_app_config("OAUTH_ROLES_SCOPE") is not None and len(str(get_app_config("OAUTH_ROLES_SCOPE")).replace('\"', '')) > 0:
             user_roles = api_data.get(str(get_app_config("OAUTH_ROLES_SCOPE")).replace('\"', ''))
         else:
             user_roles = api_data.get("roles")
+        print(user_roles)
 
         user = Users.query.filter_by(email=user_email).first()
         if user is None:
