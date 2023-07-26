@@ -14,9 +14,6 @@ from CTFd.utils.logging import log
 from CTFd.utils.security.auth import login_user
 
 from .models import OAuthClients
-import logging, sys
-
-logging.basicConfig(stream=sys.stdout,level=logging.DEBUG)
 
 plugin_bp = Blueprint('sso', __name__, template_folder='templates', static_folder='static', static_url_path='/static/sso')
 
@@ -102,7 +99,9 @@ def load_bp(oauth):
     def sso_redirect(client_id):
         client = oauth.create_client(client_id)
         client.authorize_access_token()
-        api_data = client.get('').json()
+        client_get = client.get('')
+        print(client_get)
+        api_data = client_get.json()
         user_name = api_data["preferred_username"]
         user_email = api_data["email"]
         if get_app_config("OAUTH_ROLES_SCOPE") is not None and len(str(get_app_config("OAUTH_ROLES_SCOPE")).replace('\"', '')) > 0:
