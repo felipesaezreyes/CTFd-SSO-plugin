@@ -15,6 +15,9 @@ from .models import OAuthClients
 PLUGIN_PATH = os.path.dirname(__file__)
 CONFIG = json.load(open("{}/config.json".format(PLUGIN_PATH)))
 
+log = logging.getLogger('authlib')
+log.addHandler(logging.StreamHandler(sys.stdout))
+log.setLevel(logging.DEBUG)
 
 def oauth_clients():
     return OAuthClients.query.all()
